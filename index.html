@@ -1,0 +1,491 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>来自狐狸的问候</title>
+
+    <link href="css/picscrollanimation.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/fox.css">
+    <link rel="stylesheet" href="css/segment.css">
+    <link rel="stylesheet" type="text/css" media="screen and (min-width: 0px) and (max-device-width: 600px)" href="css/mbmain.css">
+
+    <style>
+
+        *{
+            padding: 0px;
+            margin: 0px;
+            font-family: "STHeiti Light";
+        }
+
+        body{
+            background-color: #fafafa;
+        }
+
+        .main{
+            position: relative;
+            margin: 0 auto;
+            width: 960px;
+            height: 480px;
+            /*border: solid #000000 1px;*/
+            background-color: #ffffff;
+            margin-top: 80px;
+
+            overflow: hidden;
+        }
+
+        .main .pic-box{
+            position: relative;
+            left: -720px;
+            width: 2400px;
+            height: 210px;
+
+            -webkit-transition: all 0.6s;
+            -ms-transition: all 0.6s;
+            -moz-transition: all 0.6s;
+            -o-transition: all 1s;
+            transition: all 1s;
+        }
+
+        .main .picRight{
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 240px;
+            height: 210px;
+            background-color: #ffffff;
+            opacity: 0.6;
+
+            z-index: 2;
+        }
+
+        .main .picLeft{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 240px;
+            height: 210px;
+            background-color: #ffffff;
+            opacity: 0.6;
+
+            z-index: 2;
+        }
+
+        .pic-box .pic{
+            float: left;
+            width: 480px;
+            height: 210px;
+
+            overflow: hidden;
+        }
+
+        .pic img{
+            width: 480px;
+        }
+
+        .pic:nth-child(1){
+            background-color: red;
+        }
+
+        .pic:nth-child(2){
+            background-color: #000000;
+        }
+
+        .pic:nth-child(3){
+            background-color: brown;
+        }
+
+        .pic:nth-child(4){
+            background-color: seagreen;
+        }
+
+        .pic:nth-child(5){
+            background-color: orange;
+        }
+        
+        .main .actionBox{
+            position: absolute;
+            right: 0px;
+            bottom: 0px;
+            width: auto;
+            height: 50px;
+            margin-top: 6px;
+        }
+
+        .actionBox .btn-order{
+            float: right;
+            margin-right: 6px;
+
+            -webkit-transition: all 0.2s;
+            -ms-transition: all 0.6s;
+            -moz-transition: all 0.6s;
+            -o-transition: all 1s;
+            transition: all 1s;
+
+            /*-webkit-box-shadow: 1px 1px 8px #505050;*/
+        }
+
+        .actionBox .btnCheckOrder{
+            float: right;
+            margin-right: 6px;
+        }
+
+        .actionBox .btnJudge{
+            float: right;
+            margin-right: 6px;
+        }
+
+    /*order-box-css-start *********************************************************/
+
+        .order-box{
+            width: 960px;
+            height: 480px;
+            background-color: #ffffff;
+
+            position: absolute;
+            top: 480px;
+            left: 0px;
+
+            z-index: 4000;
+
+            -webkit-transition: all 0.6s;
+
+        }
+
+        .order-box-show{
+            -webkit-transform: translateY(-480px);
+        }
+
+        .order-box-send{
+
+        }
+
+        .order-box-header{
+            height: 80px;
+            background-color: #0044cc;
+            color: #ffffff;
+            line-height: 80px;
+        }
+
+        .order-box .cloes-tag{
+            position: absolute;
+            right: 6px;
+            top: 6px;
+        }
+
+        .order-box-pic{
+            height: 400px;
+            float: left;
+            width: 360px;
+            /*background-color: red;*/
+        }
+
+        .order-box-pic img{
+            width: 300px;
+            height: 180px;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .order-box-info{
+            position: relative;
+            height: 400px;
+            float: right;
+            width: 600px;
+            /*background-color: #000000;*/
+        }
+
+        .order-box-info .none-address{
+            position: relative;
+            text-align: right;
+            color: #0044cc;
+            text-decoration: underline;
+            cursor: hand;
+        }
+
+
+    /*order-box-css-end*********************************************************************/
+
+        .touchableLock{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 960px;
+            height: 480px;
+            z-index: 7000;
+            background-color: #ffffff;
+            opacity: 0.9;
+            display: none;
+        }
+    /**********************************************************************/
+
+    </style>
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="picRight"></div>
+        <div class="picLeft"></div>
+
+        <div class="pic-box">
+            <div class="pic"> <img data-index="0" src="#"> </div>
+            <div class="pic"> <img data-index="1" src="#"> </div>
+            <div class="pic"> <img data-index="2" src="#"> </div>
+            <div class="pic"> <img data-index="3" src="#"> </div>
+            <div class="pic"> <img data-index="4" src="#"> </div>
+        </div>
+
+        <h1 id="title">TITLE</h1>
+        <h1>￥<label id="promotionPrice">29</label></h1>
+        <h5 style="text-decoration: line-through">价格：￥<label id="price">49.9</label>元</h5>
+        <div class="windowsStyle-btn-small sellable" style="width: 68px">目前有货</div>
+        <h6>为什么选择我们？</h6>
+        <h6>24小时内免费送货上门，货到付款</h6>
+        <h6>出现质量问题三日内全额退款</h6>
+
+        <div class="actionBox">
+            <div class="btnCheckOrder windowsStyle-btn-middle">查看我的订单</div>
+            <div class="btn-order windowsStyle-btn-middle">立即购买</div>
+            <div class="btnJudge windowsStyle-btn-middle">顾客评价</div>
+        </div>
+
+        <div class="order-box">
+            <div class="order-box-header">
+                <h1>确认你的订单</h1>
+
+                <div class="cloes-tag"></div>
+            </div>
+
+            <div class="order-box-pic">
+                <img id="orderImage" src="hpic.jpg">
+                <h2 id="orderTitle"></h2>
+            </div>
+
+            <div class="order-box-info">
+
+                <select class="windowsStyle-select addressLocation">
+                    <option>make a address</option>
+                </select>
+                <input type="text" class="windowsStyle-input addressNumber" placeholder="宿舍号码">
+                <p class="none-address">none-address</p>
+
+                <p>联系方式：<input type="text" id="phonenumber" placeholder="联系电话"></p>
+
+                <p>色彩与规格：</p>
+                <select class="windowsStyle-select">
+                    <option>选购数量</option>
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+                <div class="ios-segmented-control">
+                    <ul>
+                        <li class="color light" data-index="0">color</li>
+                        <li class="color" data-index="1">color</li>
+                        <li class="color" data-index="2">color</li>
+                        <li class="color" data-index="3">color</li>
+                    </ul>
+                </div>
+
+                <div class="ios-segmented-control">
+                    <ul>
+                        <li class="size light" data-index="0">size</li>
+                        <li class="size" data-index="1">size</li>
+                        <li class="size" data-index="2">size</li>
+                        <li class="size" data-index="3">size</li>
+                    </ul>
+                </div>
+
+
+                <h1>总价：<label id="totalPrice">99</label>元</h1>
+                <input type="checkbox" id="priceAdd">
+                <label for="priceAdd">添加一元，即刻送货</label>
+                <div style="width: 100px" class="orderSubmit windowsStyle-btn-middle">提交订单</div>
+            </div>
+
+        </div>
+
+        <div class="windowsStyleWaringBox">
+            <h3 id="waringError">sdasdasdsadsa</h3>
+            <div class="waringConfirm windowsStyle-btn-small">确定</div>
+        </div>
+
+        <div class="touchableLock"></div>
+    </div>
+
+</body>
+<!--<script src="require.js" data-main="js/foxsaysnice"></script>-->
+<script src="js/classie.js"></script>
+<script src="js/caine.js"></script>
+<!--<script src="js/foxsaysnice.js"></script>-->
+<script src="js/ajax.js"></script>
+<!--<script src="js/orderHandler.js"></script>-->
+<!--<script src="js/picscroll.js"></script>-->
+<script src="js/ios-segmented-control.js"></script>
+<script src="js/testJOSN.js"></script>
+<script>
+//    window.foxsaysnicedata = testData;
+//
+//    var addressJSON = {
+//        "location":[
+//                "0001",
+//                "0010"
+//        ]
+//    }
+//
+//    var addressSelectInit = function(){
+//        for(var locationName in addressJSON.location){
+//            var addSelect = '<option>'+addressJSON.location[locationName]+'</option>';
+//            $('.addressLocation').innerHTML += addSelect;
+//        }
+//    }
+//
+//    addressSelectInit();
+
+//
+//    var fuck = [].slice.call(document.querySelectorAll('.pic img'));
+//    fuck.forEach(function(obj, i){
+//        var index = obj.getAttribute('data-index');
+//        var imgPath = contentTestData.content[index].imagePath;
+//        obj.src = imgPath;
+//    })
+//
+//    var judge = $('.btnJudge');
+//    judge.onclick = function(){
+//        var index = PicScroll.getCenterImageIndex();
+//        alert(index);
+//    }
+
+//    var orderBox = $('.order-box'),
+//            orderBtn = $('.btn-order'),
+//            orderCloseTag = $('.cloes-tag'),
+//            priceAdd = $('#priceAdd'),
+//            orderSubmit = $('.orderSubmit'),
+//            waringBox = $('.windowsStyleWaringBox'),
+//            waringConfirm = $('.waringConfirm'),
+//            touchableLock = $('.touchableLock');
+//
+//    var lockTouch = function(){
+//        touchableLock.style.display = 'block';
+//    }
+//
+//    var unlockTouch = function(){
+//        touchableLock.style.display = 'none';
+//    }
+//
+//
+//    var orderHandler = function(){
+//        require(['orderHandler'], function(OrderHandler){
+//            Caine.add_listener()
+//        })
+//    }
+
+//    var showOrderBox = function(){
+//        var isOrderShow = classie.has(orderBox, 'order-box-show');
+//
+//        if(isOrderShow){
+//            classie.remove(orderBox, 'order-box-show');
+//        }else{
+//            classie.add(orderBox, 'order-box-show');
+//        }
+//    }
+//
+//    var hideOrderBox = function(){
+//
+//        var isOrderShow = classie.has(orderBox, 'order-box-show');
+//
+//        if(isOrderShow){
+//            classie.remove(orderBox, 'order-box-show');
+//        }
+//    }
+
+//    var showWaringBoxWithError = function(err){
+//        var isWaringBoxShow = classie.has(waringBox, 'windowsStyleWaringBoxShow');
+//
+//        if(!isWaringBoxShow){
+//            $('#waringError').innerHTML = err;
+//            classie.add(waringBox, 'windowsStyleWaringBoxShow');
+//            lockTouch();
+//        }
+//    }
+//
+//    var hideWaringBox = function(){
+//        var isWaringBoxShow = classie.has(waringBox, 'windowsStyleWaringBoxShow');
+//
+//        if(isWaringBoxShow){
+//            classie.remove(waringBox, 'windowsStyleWaringBoxShow');
+//            unlockTouch();
+//        }
+//    }
+
+//    Caine.add_listener(orderBtn, 'click', showOrderBox);
+
+//    Caine.add_listener(orderCloseTag, 'click', hideOrderBox);
+
+//    Caine.add_listener(waringConfirm, 'click', hideWaringBox);
+//
+//    var priceAddClick = function(){
+//        var totalPrice = $('#totalPrice');
+//        if(this.checked){
+//            var oldPrice = totalPrice.innerText;
+//            var newPrice = parseInt(oldPrice)+1;
+//            totalPrice.innerText = newPrice;
+//        }else if(!this.checked){
+//            var oldPrice = totalPrice.innerText;
+//            var newPrice = parseInt(oldPrice)-1;
+//            totalPrice.innerText = newPrice;
+//        }
+//    }
+//
+//    Caine.add_listener(priceAdd, 'change',priceAddClick);
+//
+//    change_segmented_index('.color', function(index){
+//        alert(index);
+//    })
+//
+//    var getOrderInfo = function(){
+//        var Location = $('.addressLocation'),
+//                number = $('.addressNumber'),
+//                phonenumber = $('#phonenumber'),
+//                isRightNumber = /\d{0,4}/,
+//                isRightPhonenumber = /^1[3|4|5|7|8|9][0-9]\d{4,8}$/;
+//
+//        if(!isRightNumber.test(number.value)){
+//            showWaringBoxWithError('请输入正确的宿舍号码');
+//            return false;
+//        }
+//
+//        if(!isRightPhonenumber.test(phonenumber.value)){
+//            showWaringBoxWithError('请输入正确的手机号码');
+//            return false;
+//        }
+//    }
+//
+//    Caine.add_listener(orderSubmit, 'click', getOrderInfo);
+//
+//    var foxsaysnice = function(json){
+//        this.content = json;
+//    }
+//    foxsaysnice.prototype.getImageByIndex = function(index, code){
+//        var arr = this.content.content;
+//
+//        for(var key in arr){
+//            if(arr[key].index == index){
+//                code(arr[key].imgPath);
+//            }
+//        }
+//    }
+//    foxsaysnice.prototype.getTitleByIndex = function(index, code){
+//        var arr = this.content.content;
+//
+//        for(var key in arr){
+//            if(arr[key].index == index){
+//                code(arr[key].title);
+//            }
+//        }
+//    }
+
+</script>
+<script src="js/foxsaysnice.js"></script>
+</html>

@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>login</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="css/fox.css">
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+
+        input{
+            outline: none;
+            border: solid #000000 1px;
+            background-color: white;
+            height: 28px;
+            width: 378px;
+            margin: 6px 0px 0px 0px;
+        }
+
+        .login{
+            width: 380px;
+            margin: 0 auto;
+            /*border: solid red 1px;*/
+        }
+
+        .waring{
+            color: red;
+        }
+    </style>
+
+    <link rel="stylesheet" href="fox.css">
+</head>
+<body>
+<div class="login">
+    <h1>来自狐狸的问候</h1>
+    <form method="get">
+        <input type="text" placeholder="账户" id="username">
+        <input type="password" placeholder="密码" id="passcode">
+    </form>
+
+    <p class="waring"></p>
+
+    <div id="loginBtn" class="windowsStyle-btn-small">登入</div>
+</div>
+</body>
+<script src="caine.js"></script>
+<script src="ajax.js"></script>
+<script>
+
+    (function(){
+        var loginBtn = $('#loginBtn');
+        loginBtn.addEventListener('click', function(){
+            var waring = $('.waring');
+            var username = $('#username').value;
+
+            if(username !== ''){
+                var passcode = $('#passcode').value;
+                if(passcode !== ''){
+//                    do somethings here....
+                    alert(passcode);
+                }else{
+                    waring.innerHTML = null;
+                    waring.innerHTML = '为什么不输入密码呢？'
+                }
+            }else{
+                waring.innerHTML = null;
+                waring.innerHTML = '为什么不输入账号呢？';
+            }
+        })
+    })()
+</script>
+</html>
